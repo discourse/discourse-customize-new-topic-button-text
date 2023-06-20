@@ -1,0 +1,20 @@
+// if our connector is not empty, hide the default new topic button
+.custom-new-topic-button-connector:not(:empty) ~ #create-topic {
+  display: none;
+}
+
+.custom-new-topic-button-connector:empty {
+  display: none;
+}
+
+// clean up admin json settings a little
+.json-schema-editor-modal .je-object__container .form-group {
+  .form-control {
+    margin-bottom: 0;
+  }
+  .form-text {
+    display: block;
+    margin-bottom: 1em;
+    text-align: right;
+  }
+}
