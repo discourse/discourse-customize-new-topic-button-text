@@ -1,7 +1,39 @@
 custom_new_topic_text:
-  default: ""
-  json_schema: '{"type":"array","uniqueItems":true,"items":{"type":"object","properties":{"filter":{"type":"string","minLength":1,"description":"Category or tag name (note: tags take precedence)"},"icon":{"type":"string","default":"plus","description":"Font awesome icon name for the New Topic button"},"button_text":{"type":"string","description":"New Topic button"},"composer_action_text":{"type":"string","description":"Composer action name (Create a new topic by default)"},"composer_button_text":{"type":"string","description":"Composer post button"}},"additionalProperties":false}}'
-
+  default: >-
+    []
+  json_schema: >-
+    {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Category or tag name (note: tags take precedence)"
+          },
+          "icon": {
+            "type": "string",
+            "default": "plus",
+            "description": "Font awesome icon name for the New Topic button"
+          },
+          "button_text": {
+            "type": "string",
+            "description": "New Topic button"
+          },
+          "composer_action_text": {
+            "type": "string",
+            "description": "Composer action name (Create a new topic by default)"
+          },
+          "composer_button_text": {
+            "type": "string",
+            "description": "Composer post button"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
 inherit_parent_category:
   default: true
   description: "When disabled, subcategories will not automatically inherit the parent category text."
