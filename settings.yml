@@ -1,6 +1,5 @@
 custom_new_topic_text:
-  default: >-
-    []
+  default: "[]"
   json_schema: >-
     {
       "type": "array",
