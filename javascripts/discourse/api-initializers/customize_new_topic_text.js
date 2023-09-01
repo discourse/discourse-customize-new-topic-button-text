@@ -11,8 +11,8 @@ const formatFilter = (filter) =>
 export default apiInitializer("0.11.1", (api) => {
   const getFilteredSetting = (model) => {
     const category = Category.findById(model._categoryId);
-    const categorySlug = category?.slug;
-    const categoryParentSlug = category?.parentCategory?.slug;
+    const categoryID = category?.id;
+    const categoryParentID = category?.parentCategory?.id;
     // not compatible with multiple tags
     // so just use the first one
     const firstTag =
@@ -30,18 +30,17 @@ export default apiInitializer("0.11.1", (api) => {
       );
     }
 
-    if (!filteredSetting && categorySlug) {
+    if (!filteredSetting && categoryID) {
       filteredSetting = parsedSetting.find(
-        (entry) => categorySlug && formatFilter(entry.filter) === categorySlug
+        (entry) => categoryID && parseInt(entry.filter, 10) === categoryID
       );
     }
 
     if (settings.inherit_parent_category) {
-      if (!filteredSetting && categoryParentSlug) {
+      if (!filteredSetting && categoryParentID) {
         filteredSetting = parsedSetting.find(
           (entry) =>
-            categoryParentSlug &&
-            formatFilter(entry.filter) === categoryParentSlug
+            categoryParentID && parseInt(entry.filter, 10) === categoryParentID
         );
       }
     }
@@ -51,14 +50,17 @@ export default apiInitializer("0.11.1", (api) => {
 
   api.customizeComposerText({
     actionTitle(model) {
-      return getFilteredSetting(model)?.composer_action_text;
+      // if the topic is present, it's a reply
+      if (!model.topic) {
+        return getFilteredSetting(model)?.composer_action_text;
+      }
     },
 
     saveLabel(model) {
       const filteredSettingText =
         getFilteredSetting(model)?.composer_button_text;
 
-      if (filteredSettingText) {
+      if (filteredSettingText && !model.topic) {
         const currentLocale = I18n.currentLocale();
 
         // a translation key is expected, so creating a temporary one here

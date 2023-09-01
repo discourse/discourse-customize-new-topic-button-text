@@ -10,12 +10,7 @@ import I18n from "I18n";
 const formatFilter = (filter) =>
   filter?.toLowerCase().trim().replace(/\s+/g, "-");
 
-const settingFilter = (
-  categorySlug,
-  categoryParentSlug,
-  tagId,
-  parsedSetting
-) => {
+const settingFilter = (categoryID, categoryParentID, tagId, parsedSetting) => {
   let filteredSetting;
 
   // precedence: tag > category > parent category
@@ -26,16 +21,16 @@ const settingFilter = (
     );
   }
 
-  if (!filteredSetting && categorySlug) {
+  if (!filteredSetting && categoryID) {
     filteredSetting = parsedSetting.find(
-      (entry) => entry && formatFilter(entry.filter) === categorySlug
+      (entry) => entry && parseInt(entry.filter, 10) === categoryID
     );
   }
 
   if (settings.inherit_parent_category) {
-    if (!filteredSetting && categoryParentSlug) {
+    if (!filteredSetting && categoryParentID) {
       filteredSetting = parsedSetting.find(
-        (entry) => entry && formatFilter(entry.filter) === categoryParentSlug
+        (entry) => entry && parseInt(entry.filter) === categoryParentID
       );
     }
   }
@@ -52,16 +47,11 @@ export default class CustomNewTopicButton extends Component {
   get filteredSetting() {
     const parsedSetting = JSON.parse(settings.custom_new_topic_text);
     const category = this.args.category;
-    const categorySlug = category?.slug;
-    const categoryParentSlug = category?.parentCategory?.slug;
+    const categoryID = category?.id;
+    const categoryParentID = category?.parentCategory?.id;
     const tagId = this.args.tag?.id;
 
-    return settingFilter(
-      categorySlug,
-      categoryParentSlug,
-      tagId,
-      parsedSetting
-    );
+    return settingFilter(categoryID, categoryParentID, tagId, parsedSetting);
   }
 
   get customCreateTopicLabel() {
@@ -78,7 +68,7 @@ export default class CustomNewTopicButton extends Component {
 
   @action
   customCreateTopic() {
-    this.composer.openComposer({
+    this.composer.open({
       action: Composer.CREATE_TOPIC,
       draftKey: Composer.NEW_TOPIC_KEY,
       categoryId: this.args.category?.id,
