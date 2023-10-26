@@ -57,17 +57,30 @@ export default apiInitializer("0.11.1", (api) => {
     },
 
     saveLabel(model) {
-      const filteredSettingText =
-        getFilteredSetting(model)?.composer_button_text;
+      if (!model.topic) {
+        const filteredSettingText =
+          getFilteredSetting(model)?.composer_button_text;
+        if (filteredSettingText) {
+          const currentLocale = I18n.currentLocale();
 
-      if (filteredSettingText && !model.topic) {
-        const currentLocale = I18n.currentLocale();
+            // a translation key is expected, so creating a temporary one here
+            I18n.translations[currentLocale].js.topic.custom_composer_save_label =
+              filteredSettingText;
 
-        // a translation key is expected, so creating a temporary one here
-        I18n.translations[currentLocale].js.topic.custom_composer_save_label =
-          filteredSettingText;
+            return "topic.custom_composer_save_label";
+          }
+      } else {
+        // Reply button
+        const filteredSettingText =
+          getFilteredSetting(model)?.reply_button_text;
+        if (filteredSettingText) {
+          const currentLocale = I18n.currentLocale();
+          // a translation key is expected, so creating a temporary one here
+          I18n.translations[currentLocale].js.topic.custom_reply_label =
+            filteredSettingText;
 
-        return "topic.custom_composer_save_label";
+          return "topic.custom_reply_label";
+        }
       }
     },
   });
