@@ -1,9 +1,6 @@
-// if our connector is not empty, hide the default new topic button
-.custom-new-topic-button-connector:not(:empty) ~ #create-topic {
-  display: none;
-}
-
-.custom-new-topic-button-connector:empty {
+// hide the default new topic button
+#custom-create-topic ~ .fk-d-button-tooltip,
+#custom-create-topic ~ #create-topic {
   display: none;
 }
 
