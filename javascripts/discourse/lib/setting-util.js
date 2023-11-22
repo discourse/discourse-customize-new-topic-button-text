@@ -41,7 +41,7 @@ export function getFilteredSetting(args, settingsText) {
   const categoryParentID = category?.parentCategory?.id;
   let filteredSetting;
 
-  if (args.topic && args.topic.tags?.length > 0) {
+  if (args.topic && args.topic?.tags?.length > 0) {
     // within topics, use the fist matching tag we can find
     for (let tag of args.topic.tags) {
       filteredSetting = settingFilter(

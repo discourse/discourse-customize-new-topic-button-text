@@ -22,4 +22,18 @@
       display: none;
     }
   }
+
+  .post-controls .actions > .create {
+    display: none;
+  }
+
+  .mobile-view & {
+    .extra-buttons {
+      .custom-reply-button {
+        .d-button-label {
+          display: none;
+        }
+      }
+    }
+  }
 }
