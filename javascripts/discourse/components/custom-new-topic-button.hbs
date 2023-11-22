@@ -8,9 +8,9 @@
       @disabled={{this.attrs.createTopicDisabled}}
       @translatedLabel={{this.customCreateTopicLabel}}
     >
-    {{#if this.attrs.createTopicDisabled}}
-      <DTooltip>{{i18n "topic.create_disabled_category"}}</DTooltip>
-    {{/if}}
+      {{#if this.attrs.createTopicDisabled}}
+        <DTooltip>{{i18n "topic.create_disabled_category"}}</DTooltip>
+      {{/if}}
     </DButton>
   {{/if}}
 {{/if}}

@@ -19,6 +19,10 @@
   }
 }
 
-.topic-footer-main-buttons > .create {
-  display: none;
+.custom-reply-button {
+  .topic-footer-main-buttons {
+    .create:not(.custom-create) {
+      display: none;
+    }
+  }
 }

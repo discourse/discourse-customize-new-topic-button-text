@@ -6,37 +6,7 @@ import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 import Composer from "discourse/models/composer";
 import I18n from "I18n";
-
-const formatFilter = (filter) =>
-  filter?.toLowerCase().trim().replace(/\s+/g, "-");
-
-const settingFilter = (categoryID, categoryParentID, tagId, parsedSetting) => {
-  let filteredSetting;
-
-  // precedence: tag > category > parent category
-
-  if (tagId) {
-    filteredSetting = parsedSetting.find(
-      (entry) => entry && formatFilter(entry.filter) === tagId
-    );
-  }
-
-  if (!filteredSetting && categoryID) {
-    filteredSetting = parsedSetting.find(
-      (entry) => entry && parseInt(entry.filter, 10) === categoryID
-    );
-  }
-
-  if (settings.inherit_parent_category) {
-    if (!filteredSetting && categoryParentID) {
-      filteredSetting = parsedSetting.find(
-        (entry) => entry && parseInt(entry.filter) === categoryParentID
-      );
-    }
-  }
-
-  return filteredSetting;
-};
+import { getFilteredSetting } from "../lib/setting-util";
 
 export default class CustomNewTopicButton extends Component {
   @service router;
@@ -45,13 +15,7 @@ export default class CustomNewTopicButton extends Component {
   @tracked hasDraft = this.currentUser.has_topic_draft;
 
   get filteredSetting() {
-    const parsedSetting = JSON.parse(settings.custom_new_topic_text);
-    const category = this.args.category;
-    const categoryID = category?.id;
-    const categoryParentID = category?.parentCategory?.id;
-    const tagId = this.args.tag?.id;
-
-    return settingFilter(categoryID, categoryParentID, tagId, parsedSetting);
+    return getFilteredSetting(this.args, settings.custom_new_topic_text);
   }
 
   get customCreateTopicLabel() {
