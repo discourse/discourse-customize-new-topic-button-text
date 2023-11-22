@@ -6,27 +6,27 @@ const settingFilter = (
   categoryParentID,
   tagId,
   parsedSetting,
-  inheritParentCategory,
+  inheritParentCategory
 ) => {
   let filteredSetting;
 
   // precedence: tag > category > parent category
   if (tagId) {
     filteredSetting = parsedSetting.find(
-      (entry) => entry && formatFilter(entry.filter) === tagId,
+      (entry) => entry && formatFilter(entry.filter) === tagId
     );
   }
 
   if (!filteredSetting && categoryID) {
     filteredSetting = parsedSetting.find(
-      (entry) => entry && parseInt(entry.filter, 10) === categoryID,
+      (entry) => entry && parseInt(entry.filter, 10) === categoryID
     );
   }
 
   if (inheritParentCategory) {
     if (!filteredSetting && categoryParentID) {
       filteredSetting = parsedSetting.find(
-        (entry) => entry && parseInt(entry.filter, 10) === categoryParentID,
+        (entry) => entry && parseInt(entry.filter, 10) === categoryParentID
       );
     }
   }
@@ -48,7 +48,7 @@ export function getFilteredSetting(args, settingsText) {
         categoryID,
         categoryParentID,
         tag,
-        parsedSetting,
+        parsedSetting
       );
 
       if (filteredSetting) {
@@ -60,7 +60,7 @@ export function getFilteredSetting(args, settingsText) {
       categoryID,
       categoryParentID,
       args.tag?.id,
-      parsedSetting,
+      parsedSetting
     );
   }
 
