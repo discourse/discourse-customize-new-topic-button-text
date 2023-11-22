@@ -1,14 +1,14 @@
-{{#if (and this.filteredSetting (or this.attrs.category this.attrs.tag))}}
-  {{#if this.attrs.canCreateTopic}}
+{{#if (and this.filteredSetting (or @category @tag))}}
+  {{#if @canCreateTopic}}
     <DButton
       @class="btn-default"
       @id="custom-create-topic"
       @action={{action "customCreateTopic"}}
       @icon={{this.customCreateTopicIcon}}
-      @disabled={{this.attrs.createTopicDisabled}}
+      @disabled={{@createTopicDisabled}}
       @translatedLabel={{this.customCreateTopicLabel}}
     >
-      {{#if this.attrs.createTopicDisabled}}
+      {{#if @createTopicDisabled}}
         <DTooltip>{{i18n "topic.create_disabled_category"}}</DTooltip>
       {{/if}}
     </DButton>
