@@ -8,7 +8,7 @@ export default apiInitializer("0.11.1", (api) => {
       if (!model.topic) {
         const filteredSetting = getFilteredSetting(
           model,
-          settings.custom_new_topic_text,
+          settings.custom_new_topic_text
         );
         return filteredSetting?.composer_action_text;
       }
@@ -20,7 +20,7 @@ export default apiInitializer("0.11.1", (api) => {
 
       const filteredSetting = getFilteredSetting(
         model,
-        settings.custom_new_topic_text,
+        settings.custom_new_topic_text
       );
 
       if (!model.topic) {
@@ -55,7 +55,7 @@ export default apiInitializer("0.11.1", (api) => {
 
     const filteredSetting = getFilteredSetting(
       topic,
-      settings.custom_new_topic_text,
+      settings.custom_new_topic_text
     );
 
     if (filteredSetting?.reply_button_text) {

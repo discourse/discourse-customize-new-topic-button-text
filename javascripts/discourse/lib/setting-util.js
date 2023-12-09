@@ -41,25 +41,47 @@ export function getFilteredSetting(args, settingsText) {
   const categoryParentID = category?.parentCategory?.id;
   let filteredSetting;
 
-  if (args.topic && args.topic?.tags?.length > 0) {
-    // within topics, use the fist matching tag we can find
-    for (let tag of args.topic.tags) {
-      filteredSetting = settingFilter(
-        categoryID,
-        categoryParentID,
-        tag,
-        parsedSetting
-      );
+  let tags = [];
 
-      if (filteredSetting) {
-        break;
-      }
-    }
-  } else {
+  // If args.tag is an object
+  if (args.tag?.id) {
+    tags.push(formatFilter(args.tag.id));
+  }
+
+  // If args.tags is a string
+  if (typeof args.tags === "string") {
+    tags.push(formatFilter(args.tags));
+  }
+
+  // If args.tags is an array
+  else if (Array.isArray(args.tags)) {
+    tags = tags.concat(args.tags.map((tag) => formatFilter(tag)));
+  }
+
+  // If args.topic.tags is present
+  if (Array.isArray(args.topic?.tags)) {
+    tags = tags.concat(args.topic.tags.map((tag) => formatFilter(tag)));
+  }
+
+  for (let tag of tags) {
     filteredSetting = settingFilter(
       categoryID,
       categoryParentID,
-      args.tag?.id,
+      tag,
+      parsedSetting
+    );
+
+    if (filteredSetting) {
+      break;
+    }
+  }
+
+  // Use category settings if no tag setting is found
+  if (!filteredSetting) {
+    filteredSetting = settingFilter(
+      categoryID,
+      categoryParentID,
+      null,
       parsedSetting
     );
   }

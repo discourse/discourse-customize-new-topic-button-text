@@ -15,7 +15,16 @@ export default class CustomNewTopicButton extends Component {
   @tracked hasDraft = this.currentUser.has_topic_draft;
 
   get filteredSetting() {
-    return getFilteredSetting(this.args, settings.custom_new_topic_text);
+    const setting = getFilteredSetting(
+      this.args,
+      settings.custom_new_topic_text
+    );
+
+    if (!setting?.button_text) {
+      return;
+    }
+
+    return setting;
   }
 
   get customCreateTopicLabel() {
