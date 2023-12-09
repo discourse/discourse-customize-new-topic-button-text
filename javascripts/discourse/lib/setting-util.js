@@ -43,17 +43,17 @@ export function getFilteredSetting(args, settingsText) {
 
   let tags = [];
 
-  // If args.tag is an object
+  // If args.tag is an object (topic lists)
   if (args.tag?.id) {
     tags.push(formatFilter(args.tag.id));
   }
 
-  // If args.tags is a string
+  // If args.tags is a string (composer with one tag)
   if (typeof args.tags === "string") {
     tags.push(formatFilter(args.tags));
   }
 
-  // If args.tags is an array
+  // If args.tags is an array (composer with multiple tags)
   else if (Array.isArray(args.tags)) {
     tags = tags.concat(args.tags.map((tag) => formatFilter(tag)));
   }
