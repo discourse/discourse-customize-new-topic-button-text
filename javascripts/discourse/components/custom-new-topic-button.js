@@ -1,9 +1,9 @@
 // This component creates a new duplicate "New Topic" button
 // which avoids modifying the existing button/translations in core
 import Component from "@glimmer/component";
-import { inject as service } from "@ember/service";
-import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
+import { action } from "@ember/object";
+import { inject as service } from "@ember/service";
 import Composer from "discourse/models/composer";
 import I18n from "I18n";
 
@@ -30,7 +30,7 @@ const settingFilter = (categoryID, categoryParentID, tagId, parsedSetting) => {
   if (settings.inherit_parent_category) {
     if (!filteredSetting && categoryParentID) {
       filteredSetting = parsedSetting.find(
-        (entry) => entry && parseInt(entry.filter) === categoryParentID
+        (entry) => entry && parseInt(entry.filter, 10) === categoryParentID
       );
     }
   }
@@ -42,6 +42,7 @@ export default class CustomNewTopicButton extends Component {
   @service router;
   @service currentUser;
   @service composer;
+
   @tracked hasDraft = this.currentUser.has_topic_draft;
 
   get filteredSetting() {
