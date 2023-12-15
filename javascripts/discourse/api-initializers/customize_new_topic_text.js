@@ -41,10 +41,8 @@ export default apiInitializer("0.11.1", (api) => {
   });
 
   api.addPostMenuButton("customReplyButton", (attrs) => {
-    const currentRoute = api.container.lookup("router:main").currentRoute;
+    const currentRoute = api.container.lookup("service:router").currentRoute;
     const isTopic = currentRoute.name.includes("topic");
-
-    document.querySelector("body").classList.add("custom-reply-button");
 
     if (!isTopic || !attrs.canCreatePost) {
       document.querySelector("body").classList.remove("custom-reply-button");
@@ -61,6 +59,7 @@ export default apiInitializer("0.11.1", (api) => {
     );
 
     if (filteredSetting?.reply_button_text) {
+      document.querySelector("body").classList.add("custom-reply-button");
       return {
         action: "replyToPost",
         icon: "reply",
