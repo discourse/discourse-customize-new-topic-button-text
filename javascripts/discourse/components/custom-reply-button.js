@@ -1,8 +1,8 @@
 // This component creates a new duplicate "Reply" button
 // which avoids modifying the existing button/translations in core
 import Component from "@glimmer/component";
-import { inject as service } from "@ember/service";
 import { action } from "@ember/object";
+import { inject as service } from "@ember/service";
 import Composer from "discourse/models/composer";
 import I18n from "I18n";
 import { getFilteredSetting } from "../lib/setting-util";

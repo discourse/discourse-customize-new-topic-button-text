@@ -42,10 +42,12 @@ export default apiInitializer("0.11.1", (api) => {
 
   api.addPostMenuButton("customReplyButton", (attrs) => {
     const currentRoute = api.container.lookup("router:main").currentRoute;
-    const site = api.container.lookup("site:main");
     const isTopic = currentRoute.name.includes("topic");
 
+    document.querySelector("body").classList.add("custom-reply-button");
+
     if (!isTopic || !attrs.canCreatePost) {
+      document.querySelector("body").classList.remove("custom-reply-button");
       return;
     }
 
@@ -65,7 +67,7 @@ export default apiInitializer("0.11.1", (api) => {
         className: "reply create custom-reply-button fade-out",
         title: "post.controls.reply",
         position: "last",
-        translatedLabel: !site.mobileView
+        translatedLabel: !attrs.mobileView
           ? filteredSetting.reply_button_text
           : "",
       };
