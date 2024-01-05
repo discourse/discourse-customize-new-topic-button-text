@@ -3,7 +3,7 @@ RSpec.describe "Customize New Topic Text - new topic button", system: true do
     upload_theme_component
   end
 
-  fab!(:user) 
+  fab!(:user) { Fabricate(:user, refresh_auto_groups: true) }
 
   before do 
     sign_in(user)
