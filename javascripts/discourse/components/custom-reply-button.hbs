@@ -1,0 +1,12 @@
+{{#if
+  (and @topic.details.can_create_post this.filteredSetting.reply_button_text)
+}}
+  {{body-class "custom-reply-button"}}
+  <DButton
+    @icon="reply"
+    @translatedLabel={{this.customReplyLabel}}
+    @action={{action "customReply"}}
+    @title="topic.reply.help"
+    class="btn-primary create custom-create"
+  />
+{{/if}}

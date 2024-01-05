@@ -28,6 +28,10 @@ custom_new_topic_text:
           "composer_button_text": {
             "type": "string",
             "description": "Composer post button"
+          },
+          "reply_button_text": {
+            "type": "string",
+            "description": "Reply button"
           }
         },
         "additionalProperties": false
