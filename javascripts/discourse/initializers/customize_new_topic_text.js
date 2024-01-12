@@ -1,6 +1,6 @@
+import { withPluginApi } from "discourse/lib/plugin-api";
 import Category from "discourse/models/category";
 import I18n from "I18n";
-import { withPluginApi } from "discourse/lib/plugin-api";
 const parsedSetting = JSON.parse(settings.custom_new_topic_text);
 
 const formatFilter = (filter) =>
