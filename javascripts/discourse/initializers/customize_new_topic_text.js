@@ -8,7 +8,7 @@ const formatFilter = (filter) =>
 
 export default {
   name: "customize-new-topic-text",
-  before: "chat-setup",
+  before: "inject-objects",
 
   initialize() {
     withPluginApi("0.11.1", (api) => {
