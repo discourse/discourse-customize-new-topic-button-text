@@ -1,5 +1,5 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
-import I18n from "I18n";
+import I18n from "discourse-i18n";
 import { getFilteredSetting } from "../lib/setting-util";
 
 export default {
@@ -48,12 +48,10 @@ export default {
       api.addPostMenuButton("customReplyButton", (attrs) => {
         const currentRoute =
           api.container.lookup("service:router").currentRoute;
-        const isTopic = currentRoute.name.includes("topic");
+        const isTopic = currentRoute.parent.name.includes("topic");
 
         if (!isTopic || !attrs.canCreatePost) {
-          document
-            .querySelector("body")
-            .classList.remove("custom-reply-button");
+          document.body.classList.remove("custom-reply-button");
           return;
         }
 
@@ -67,7 +65,7 @@ export default {
         );
 
         if (filteredSetting?.reply_button_text) {
-          document.querySelector("body").classList.add("custom-reply-button");
+          document.body.classList.add("custom-reply-button");
           return {
             action: "replyToPost",
             icon: "reply",
