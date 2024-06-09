@@ -1,7 +1,7 @@
 {
-  "about_url": null,
+  "about_url": "https://meta.discourse.org/t/customize-new-topic-button-text-based-on-category-or-tag/269086",
   "license_url": null,
   "assets": {},
-  "name": "Customize new topic button text",
+  "name": "Customize New Topic Button Text",
   "component": true
 }
