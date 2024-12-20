@@ -3,11 +3,14 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
+import { and } from "truth-helpers";
+import DButton from "discourse/components/d-button";
+import bodyClass from "discourse/helpers/body-class";
 import Composer from "discourse/models/composer";
-import I18n from "I18n";
+import { i18n } from "discourse-i18n";
 import { getFilteredSetting } from "../lib/setting-util";
 
-export default class CustomReplyButton extends Component {
+export default class CustomTopicReplyButton extends Component {
   @service router;
   @service currentUser;
   @service composer;
@@ -17,9 +20,7 @@ export default class CustomReplyButton extends Component {
   }
 
   get customReplyLabel() {
-    return (
-      this.filteredSetting?.reply_button_text || I18n.t("topic.reply.title")
-    );
+    return this.filteredSetting?.reply_button_text || i18n("topic.reply.title");
   }
 
   @action
@@ -31,4 +32,21 @@ export default class CustomReplyButton extends Component {
       topic: this.args.topic,
     });
   }
+
+  <template>
+    {{#if
+      (and
+        @topic.details.can_create_post this.filteredSetting.reply_button_text
+      )
+    }}
+      {{bodyClass "custom-reply-button"}}
+      <DButton
+        @icon="reply"
+        @translatedLabel={{this.customReplyLabel}}
+        @action={{this.customReply}}
+        @title="topic.reply.help"
+        class="btn-primary create custom-create"
+      />
+    {{/if}}
+  </template>
 }

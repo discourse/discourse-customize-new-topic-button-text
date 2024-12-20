@@ -9,6 +9,7 @@
   .form-control {
     margin-bottom: 0;
   }
+
   .form-text {
     display: block;
     margin-bottom: 1em;
@@ -20,20 +21,6 @@
   .topic-footer-main-buttons {
     .create:not(.custom-create) {
       display: none;
-    }
-  }
-
-  .post-controls .actions > .create {
-    display: none;
-  }
-
-  .mobile-view & {
-    .extra-buttons {
-      .custom-reply-button {
-        .d-button-label {
-          display: none;
-        }
-      }
     }
   }
 }
