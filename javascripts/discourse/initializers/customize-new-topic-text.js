@@ -1,5 +1,6 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import I18n from "discourse-i18n";
+import CustomPostReplyButton from "../components/custom-post-reply-button";
 import { getFilteredSetting } from "../lib/setting-util";
 
 export default {
@@ -7,7 +8,7 @@ export default {
   before: "inject-objects",
 
   initialize() {
-    withPluginApi("0.11.1", (api) => {
+    withPluginApi("1.34.0", (api) => {
       api.customizeComposerText({
         actionTitle(model) {
           if (!model.topic) {
@@ -45,39 +46,12 @@ export default {
         },
       });
 
-      api.addPostMenuButton("customReplyButton", (attrs) => {
-        const currentRoute =
-          api.container.lookup("service:router").currentRoute;
-        const isTopic = currentRoute.parent.name.includes("topic");
-
-        if (!isTopic || !attrs.canCreatePost) {
-          document.body.classList.remove("custom-reply-button");
-          return;
+      api.registerValueTransformer(
+        "post-menu-buttons",
+        ({ value: dag, context: { buttonKeys } }) => {
+          dag.replace(buttonKeys.REPLY, CustomPostReplyButton);
         }
-
-        const topic = {
-          topic: currentRoute.parent.attributes,
-        };
-
-        const filteredSetting = getFilteredSetting(
-          topic,
-          settings.custom_new_topic_text
-        );
-
-        if (filteredSetting?.reply_button_text) {
-          document.body.classList.add("custom-reply-button");
-          return {
-            action: "replyToPost",
-            icon: "reply",
-            className: "reply create custom-reply-button fade-out",
-            title: "post.controls.reply",
-            position: "last",
-            translatedLabel: !attrs.mobileView
-              ? filteredSetting.reply_button_text
-              : "",
-          };
-        }
-      });
+      );
     });
   },
 };
