@@ -28,12 +28,13 @@ RSpec.describe "Customize New Topic Text - reply button", system: true do
 
     it "the reply button on posts has custom text" do
       visit("/t/-/#{topic.id}")
-      expect(find(".extra-buttons .reply")).to have_content(custom_text)
+      expect(find(".post-controls .actions .reply")).to have_content(custom_text)
     end
 
     it "the reply button on posts in a different #{type} is not custom" do
       visit("/t/-/#{topic2.id}")
-      expect(find(".actions")).not_to have_css(".extra-buttons .reply")
+      expect(find(".post-controls .actions")).to have_no_css(".custom-reply-button")
+      expect(find(".post-controls .actions .reply")).to have_no_content(custom_text)
     end
 
     it "the reply button in the footer has custom text" do
