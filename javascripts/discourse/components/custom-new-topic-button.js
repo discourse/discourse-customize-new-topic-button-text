@@ -5,7 +5,7 @@ import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
 import Composer from "discourse/models/composer";
-import I18n from "I18n";
+import { i18n } from "discourse-i18n";
 import { getFilteredSetting } from "../lib/setting-util";
 
 export default class CustomNewTopicButton extends Component {
@@ -30,7 +30,7 @@ export default class CustomNewTopicButton extends Component {
 
   get customCreateTopicLabel() {
     if (this.hasDraft) {
-      return I18n.t("topic.open_draft");
+      return i18n("topic.open_draft");
     } else {
       return this.filteredSetting?.button_text;
     }
