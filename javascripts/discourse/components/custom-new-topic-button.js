@@ -47,8 +47,10 @@ export default class CustomNewTopicButton extends Component {
       draftKey: Composer.NEW_TOPIC_KEY,
       categoryId: this.args.category?.id,
       tags: Array.isArray(this.args.tag)
-      ? this.args.tag.map(tag => tag.id)
-      : this.args.tag ? [this.args.tag.id] : []
+        ? this.args.tag.map((tag) => tag.id)
+        : this.args.tag
+          ? [this.args.tag.id]
+          : [],
     });
   }
 }
