@@ -33,6 +33,6 @@ RSpec.describe "New Topic Submission from Tag URL", system: true do
 
     # Expect that topic creation does NOT create a 500 error
     # by checking for a successful topic being created.
-    expect(page).to have_css("a.fancy-title", text: "Test Topic Title - 1234567")
+    expect(page).to have_css(".fancy-title", text: "Test Topic Title - 1234567")
   end
 end
