@@ -4,8 +4,11 @@ import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
+import { and, or } from "truth-helpers";
+import DButton from "discourse/components/d-button";
 import Composer from "discourse/models/composer";
 import { i18n } from "discourse-i18n";
+import DTooltip from "float-kit/components/d-tooltip";
 import { getFilteredSetting } from "../lib/setting-util";
 
 export default class CustomNewTopicButton extends Component {
@@ -53,4 +56,23 @@ export default class CustomNewTopicButton extends Component {
           : [],
     });
   }
+
+  <template>
+    {{#if (and this.filteredSetting (or @category @tag))}}
+      {{#if @canCreateTopic}}
+        <DButton
+          @action={{action "customCreateTopic"}}
+          @icon={{this.customCreateTopicIcon}}
+          @translatedLabel={{this.customCreateTopicLabel}}
+          @disabled={{@createTopicDisabled}}
+          id="custom-create-topic"
+          class="btn-default"
+        >
+          {{#if @createTopicDisabled}}
+            <DTooltip>{{i18n "topic.create_disabled_category"}}</DTooltip>
+          {{/if}}
+        </DButton>
+      {{/if}}
+    {{/if}}
+  </template>
 }
