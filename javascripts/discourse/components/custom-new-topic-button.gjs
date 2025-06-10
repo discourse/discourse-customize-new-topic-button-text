@@ -43,18 +43,26 @@ export default class CustomNewTopicButton extends Component {
     return this.filteredSetting?.icon;
   }
 
+  get customRedirectUrl() {
+    return this.filteredSetting?.custom_redirect_url;
+  }
+
   @action
   customCreateTopic() {
-    this.composer.open({
-      action: Composer.CREATE_TOPIC,
-      draftKey: Composer.NEW_TOPIC_KEY,
-      categoryId: this.args.category?.id,
-      tags: Array.isArray(this.args.tag)
-        ? this.args.tag.map((tag) => tag.id)
-        : this.args.tag
+    if (this.customRedirectUrl) {
+      window.location.href = this.customRedirectUrl;
+    } else {
+      this.composer.open({
+        action: Composer.CREATE_TOPIC,
+        draftKey: Composer.NEW_TOPIC_KEY,
+        categoryId: this.args.category?.id,
+        tags: Array.isArray(this.args.tag)
+          ? this.args.tag.map((tag) => tag.id)
+          : this.args.tag
           ? [this.args.tag.id]
           : [],
-    });
+      });
+    }
   }
 
   <template>
