@@ -61,7 +61,7 @@ export default class CustomNewTopicButton extends Component {
     {{#if (and this.filteredSetting (or @category @tag))}}
       {{#if @canCreateTopic}}
         <DButton
-          @action={{action "customCreateTopic"}}
+          @action={{this.customCreateTopic}}
           @icon={{this.customCreateTopicIcon}}
           @translatedLabel={{this.customCreateTopicLabel}}
           @disabled={{@createTopicDisabled}}
