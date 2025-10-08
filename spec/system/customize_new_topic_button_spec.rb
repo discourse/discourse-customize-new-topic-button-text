@@ -8,9 +8,9 @@ RSpec.describe "Customize New Topic Text - new topic button", system: true do
 
   shared_examples "custom new topic button" do |type, custom_text|
     fab!(:category)
-    fab!(:category2) { Fabricate(:category) }
+    fab!(:category2, :category)
     fab!(:tag)
-    fab!(:tag2) { Fabricate(:tag) }
+    fab!(:tag2, :tag)
 
     before do
       setting_type = type == "category" ? category.id : tag.name

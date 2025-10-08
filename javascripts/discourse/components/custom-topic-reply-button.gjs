@@ -11,8 +11,6 @@ import { i18n } from "discourse-i18n";
 import { getFilteredSetting } from "../lib/setting-util";
 
 export default class CustomTopicReplyButton extends Component {
-  @service router;
-  @service currentUser;
   @service composer;
 
   get filteredSetting() {

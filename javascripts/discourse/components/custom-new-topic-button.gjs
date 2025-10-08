@@ -12,7 +12,6 @@ import DTooltip from "float-kit/components/d-tooltip";
 import { getFilteredSetting } from "../lib/setting-util";
 
 export default class CustomNewTopicButton extends Component {
-  @service router;
   @service currentUser;
   @service composer;
 
