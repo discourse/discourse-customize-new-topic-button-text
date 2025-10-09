@@ -8,7 +8,7 @@ export default {
   before: "inject-objects",
 
   initialize() {
-    withPluginApi("1.34.0", (api) => {
+    withPluginApi((api) => {
       api.customizeComposerText({
         actionTitle(model) {
           if (!model.topic) {

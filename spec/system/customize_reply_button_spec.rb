@@ -14,7 +14,7 @@ RSpec.describe "Customize New Topic Text - reply button", system: true do
     end
     fab!(:post) { Fabricate(:post, topic: topic) }
 
-    fab!(:topic2) { Fabricate(:topic) }
+    fab!(:topic2, :topic)
     fab!(:post2) { Fabricate(:post, topic: topic2) }
 
     before do

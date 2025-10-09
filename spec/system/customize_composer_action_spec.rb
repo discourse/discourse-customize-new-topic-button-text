@@ -8,9 +8,9 @@ RSpec.describe "Customize New Topic Text - composer action text", system: true d
 
   shared_examples "custom composer text" do |type, custom_text|
     fab!(:category)
-    fab!(:category2) { Fabricate(:category) }
+    fab!(:category2, :category)
     fab!(:tag)
-    fab!(:tag2) { Fabricate(:tag) }
+    fab!(:tag2, :tag)
 
     before do
       setting_type = type == "category" ? category.id : tag.name
