@@ -21,6 +21,10 @@ custom_new_topic_text:
             "type": "string",
             "description": "New Topic button"
           },
+          "custom_redirect_url": {
+            "type": "string",
+            "description": "Custom URL for the New Topic button"
+          },
           "composer_action_text": {
             "type": "string",
             "description": "Composer action name (Create a new topic by default)"
