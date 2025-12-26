@@ -44,8 +44,8 @@ export function getFilteredSetting(args, settingsText) {
   let tags = [];
 
   // If args.tag is an object (topic lists)
-  if (args.tag?.id) {
-    tags.push(formatFilter(args.tag.id));
+  if (args.tag?.name) {
+    tags.push(formatFilter(args.tag.name));
   }
 
   // If args.tags is a string (composer with one tag)
