@@ -1,6 +1,12 @@
 const formatFilter = (filter) =>
   filter?.toLowerCase().trim().replace(/\s+/g, "-");
 
+// TODO(https://github.com/discourse/discourse/pull/36678): The string check can be
+// removed using .discourse-compatibility once the PR is merged.
+export function getTagName(tag) {
+  return typeof tag === "string" ? tag : tag.name;
+}
+
 const settingFilter = (
   categoryID,
   categoryParentID,
@@ -43,9 +49,9 @@ export function getFilteredSetting(args, settingsText) {
 
   let tags = [];
 
-  // If args.tag is an object (topic lists)
-  if (args.tag?.name) {
-    tags.push(formatFilter(args.tag.name));
+  // If args.tag is present (string or object)
+  if (args.tag) {
+    tags.push(formatFilter(getTagName(args.tag)));
   }
 
   // If args.tags is a string (composer with one tag)
@@ -55,12 +61,14 @@ export function getFilteredSetting(args, settingsText) {
 
   // If args.tags is an array (composer with multiple tags)
   else if (Array.isArray(args.tags)) {
-    tags = tags.concat(args.tags.map((tag) => formatFilter(tag)));
+    tags = tags.concat(args.tags.map((tag) => formatFilter(getTagName(tag))));
   }
 
   // If args.topic.tags is present
   if (Array.isArray(args.topic?.tags)) {
-    tags = tags.concat(args.topic.tags.map((tag) => formatFilter(tag)));
+    tags = tags.concat(
+      args.topic.tags.map((tag) => formatFilter(getTagName(tag)))
+    );
   }
 
   for (let tag of tags) {

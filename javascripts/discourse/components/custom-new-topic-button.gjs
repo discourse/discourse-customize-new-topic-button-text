@@ -9,7 +9,7 @@ import DButton from "discourse/components/d-button";
 import Composer from "discourse/models/composer";
 import { i18n } from "discourse-i18n";
 import DTooltip from "float-kit/components/d-tooltip";
-import { getFilteredSetting } from "../lib/setting-util";
+import { getFilteredSetting, getTagName } from "../lib/setting-util";
 
 export default class CustomNewTopicButton extends Component {
   @service currentUser;
@@ -49,9 +49,9 @@ export default class CustomNewTopicButton extends Component {
       draftKey: Composer.NEW_TOPIC_KEY,
       categoryId: this.args.category?.id,
       tags: Array.isArray(this.args.tag)
-        ? this.args.tag.map((tag) => tag.name)
+        ? this.args.tag.map((tag) => getTagName(tag))
         : this.args.tag
-          ? [this.args.tag.name]
+          ? [getTagName(this.args.tag)]
           : [],
     });
   }
