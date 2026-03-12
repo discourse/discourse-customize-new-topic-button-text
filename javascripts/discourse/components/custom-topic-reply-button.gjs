@@ -3,10 +3,10 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
-import { and } from "truth-helpers";
 import DButton from "discourse/components/d-button";
 import bodyClass from "discourse/helpers/body-class";
 import Composer from "discourse/models/composer";
+import { and } from "discourse/truth-helpers";
 import { i18n } from "discourse-i18n";
 import { getFilteredSetting } from "../lib/setting-util";
 
