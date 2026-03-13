@@ -1,21 +1,18 @@
 // This component creates a new duplicate "New Topic" button
 // which avoids modifying the existing button/translations in core
 import Component from "@glimmer/component";
-import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
-import { and, or } from "truth-helpers";
 import DButton from "discourse/components/d-button";
+import DTooltip from "discourse/float-kit/components/d-tooltip";
 import Composer from "discourse/models/composer";
+import { and, or } from "discourse/truth-helpers";
 import { i18n } from "discourse-i18n";
-import DTooltip from "float-kit/components/d-tooltip";
 import { getFilteredSetting, getTagName } from "../lib/setting-util";
 
 export default class CustomNewTopicButton extends Component {
   @service currentUser;
   @service composer;
-
-  @tracked hasDraft = this.currentUser.has_topic_draft;
 
   get filteredSetting() {
     const setting = getFilteredSetting(
@@ -31,7 +28,7 @@ export default class CustomNewTopicButton extends Component {
   }
 
   get customCreateTopicLabel() {
-    if (this.hasDraft) {
+    if (this.currentUser.has_topic_draft) {
       return i18n("topic.open_draft");
     } else {
       return this.filteredSetting?.button_text;
