@@ -1,6 +1,10 @@
-// hide the default new topic button
-#custom-create-topic ~ .fk-d-button-tooltip,
-#custom-create-topic ~ #create-topic {
+// hide the default new topic button and its drafts dropdown wrapper
+#custom-create-topic ~ .d-combo-button:has(#create-topic) {
+  display: none;
+}
+
+// Keep hiding the tooltip if it still renders as a sibling in your setup
+#custom-create-topic ~ .fk-d-button-tooltip {
   display: none;
 }
 
