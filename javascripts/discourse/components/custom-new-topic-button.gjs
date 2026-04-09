@@ -1,3 +1,5 @@
+// This component creates a new duplicate "New Topic" button
+// which avoids modifying the existing button/translations in core
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
