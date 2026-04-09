@@ -1,5 +1,5 @@
-// Hide the original new topic combo button when our custom one is present
-#custom-create-topic ~ .d-combo-button:has(#create-topic) {
+// Hide only the core "New Topic" button, leaving the drafts dropdown
+#custom-create-topic ~ .d-combo-button #create-topic {
   display: none;
 }
 
