@@ -28,11 +28,7 @@ export default class CustomNewTopicButton extends Component {
   }
 
   get customCreateTopicLabel() {
-    if (this.currentUser.has_topic_draft) {
-      return i18n("topic.open_draft");
-    } else {
-      return this.filteredSetting?.button_text;
-    }
+    return this.filteredSetting?.button_text;
   }
 
   get customCreateTopicIcon() {
@@ -62,7 +58,7 @@ export default class CustomNewTopicButton extends Component {
           @translatedLabel={{this.customCreateTopicLabel}}
           @disabled={{@createTopicDisabled}}
           id="custom-create-topic"
-          class="btn-default"
+          class="btn-primary btn-icon-text" 
         >
           {{#if @createTopicDisabled}}
             <DTooltip>{{i18n "topic.create_disabled_category"}}</DTooltip>
