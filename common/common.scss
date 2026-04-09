@@ -1,14 +1,14 @@
-// 1. Hide the original "New Topic" button
+// Hide the original "New Topic" button
 #custom-create-topic ~ .d-combo-button #create-topic {
   display: none;
 }
 
-// 2. Hide the tooltip of the hidden button
+// Hide the tooltip of the hidden button
 #custom-create-topic ~ .fk-d-button-tooltip {
   display: none;
 }
 
-// 3. Make our custom button look like the left side of a combo button
+// Make our custom button look like the left side of a combo button
 // (Copying core's .d-combo-button-button styles)
 #custom-create-topic {
   border-top-right-radius: 0;
@@ -17,7 +17,7 @@
   margin-right: 0; /* Ensures it can touch the right side */
 }
 
-// 4. Force the right side (the dropdown) to pull left and match the gap
+// Force the right side (the dropdown) to pull left and match the gap
 // (Since they are siblings now, we need to override the .navigation-controls gap)
 #custom-create-topic ~ .d-combo-button {
   margin-left: -0.5em; /* Pull it left to overcome the flex gap. Adjust if necessary (usually flex gap is 0.5em) */
@@ -31,6 +31,17 @@
   border-bottom-left-radius: 0;
   border-left-color: transparent;
 }
+
+// Make sure both our custom button and the combo dropdown sit at the very right
+#custom-create-topic {
+  order: 98;
+}
+
+// Target the wrapper that holds the original button and drafts dropdown
+#custom-create-topic ~ .d-combo-button {
+  order: 99; 
+}
+
 // clean up admin json settings a little
 .json-schema-editor-modal .je-object__container .form-group {
   .form-control {
