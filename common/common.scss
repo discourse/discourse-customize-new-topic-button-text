@@ -1,6 +1,5 @@
-
-// Hide the core combo button when our custom one is present
-#custom-create-topic-combo ~ .d-combo-button {
+// Hide the original new topic combo button when our custom one is present
+#custom-create-topic ~ .d-combo-button:has(#create-topic) {
   display: none;
 }
 
