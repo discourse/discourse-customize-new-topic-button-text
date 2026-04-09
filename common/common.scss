@@ -1,6 +1,35 @@
-// Hide only the core "New Topic" button, leaving the drafts dropdown
+// Hide the original "New Topic" button
 #custom-create-topic ~ .d-combo-button #create-topic {
   display: none;
+}
+
+// Hide the tooltip of the hidden button
+#custom-create-topic ~ .fk-d-button-tooltip {
+  display: none;
+}
+
+// Make our custom button look like the left side of a combo button
+// (Copying core's .d-combo-button-button styles)
+#custom-create-topic {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right-color: transparent;
+  margin-right: 0; /* Ensures it can touch the right side */
+}
+
+// Force the right side (the dropdown) to pull left and match the gap
+// (Since they are siblings now, we need to override the .navigation-controls gap)
+#custom-create-topic ~ .d-combo-button {
+  margin-left: -0.4em; /* Pull it left to overcome the flex gap. Adjust if necessary (usually flex gap is 0.5em) */
+}
+
+// Ensure the dropdown button itself still has its flat left edge
+// (It should already have this from core, but just in case it loses it because 
+// the main button is hidden, we enforce it here)
+#custom-create-topic ~ .d-combo-button .fk-d-menu__trigger {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left-color: transparent;
 }
 
 // clean up admin json settings a little
