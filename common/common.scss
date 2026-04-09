@@ -1,19 +1,19 @@
-// 1. Hide the original "New Topic" button inside the wrapper
+// Hide the original "New Topic" button inside the wrapper
 #custom-create-topic ~ .d-combo-button #create-topic {
   display: none;
 }
 
-// 2. Hide the tooltip of the hidden button
+// Hide the tooltip of the hidden button
 #custom-create-topic ~ .fk-d-button-tooltip {
   display: none;
 }
 
-// 3. Force the custom button and the dropdown wrapper to render together at the end
+// Force the custom button and the dropdown wrapper to render together at the end
 #custom-create-topic {
   order: 98;
 }
 
-// 4. Conditional styling: Only apply these when drafts dropdown (--has-menu) exists
+// Conditional styling: Only apply these when drafts dropdown (--has-menu) exists
 .navigation-controls:has(.d-combo-button.--has-menu) #custom-create-topic {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -26,7 +26,7 @@
   margin-left: -0.4em; /* Pull left to negate the flex gap */
 }
 
-// 5. Ensure the left side of the dropdown stays flat
+// Ensure the left side of the dropdown stays flat
 #custom-create-topic ~ .d-combo-button .fk-d-menu__trigger {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
