@@ -1,13 +1,12 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
+import DButton from "discourse/components/d-button";
 import DTooltip from "discourse/float-kit/components/d-tooltip";
 import Composer from "discourse/models/composer";
 import { and, or } from "discourse/truth-helpers";
 import { i18n } from "discourse-i18n";
-import I18n from "discourse-i18n"; // Import global I18n to register keys
 import { getFilteredSetting, getTagName } from "../lib/setting-util";
-import TopicDraftsDropdown from "discourse/components/topic-drafts-dropdown";
 
 export default class CustomNewTopicButton extends Component {
   @service currentUser;
@@ -27,17 +26,7 @@ export default class CustomNewTopicButton extends Component {
   }
 
   get customCreateTopicLabel() {
-    const text = this.filteredSetting?.button_text;
-    
-    if (text) {
-      // Trick the i18n system!
-      // Dynamically register your custom text as a valid translation key.
-      const customKey = "custom_topic_button_text";
-      I18n.translations[I18n.currentLocale()].js[customKey] = text;
-      
-      // Return the new valid key!
-      return customKey;
-    }
+    return this.filteredSetting?.button_text;
   }
 
   get customCreateTopicIcon() {
@@ -67,7 +56,7 @@ export default class CustomNewTopicButton extends Component {
           @translatedLabel={{this.customCreateTopicLabel}}
           @disabled={{@createTopicDisabled}}
           id="custom-create-topic"
-          class="btn-default"
+          class="btn-primary btn-icon-text" 
         >
           {{#if @createTopicDisabled}}
             <DTooltip>{{i18n "topic.create_disabled_category"}}</DTooltip>
