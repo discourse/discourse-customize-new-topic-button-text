@@ -23,13 +23,12 @@
   margin-left: -0.5em; /* Pull it left to overcome the flex gap. Adjust if necessary (usually flex gap is 0.5em) */
 }
 
-// Ensure the dropdown button itself still has its flat left edge
-// (It should already have this from core, but just in case it loses it because 
-// the main button is hidden, we enforce it here)
-#custom-create-topic ~ .d-combo-button .fk-d-menu__trigger {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-left-color: transparent;
+// Conditional styling: Only apply these when drafts dropdown (--has-menu) exists
+.navigation-controls:has(.d-combo-button.--has-menu) #custom-create-topic {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right-color: transparent;
+  margin-right: 0; 
 }
 
 // Make sure both our custom button and the combo dropdown sit at the very right
