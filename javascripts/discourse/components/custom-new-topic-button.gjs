@@ -52,7 +52,6 @@ export default class CustomNewTopicButton extends Component {
           : [],
     });
   }
-
   <template>
     {{#if (and this.filteredSetting (or @category @tag))}}
       {{#if @canCreateTopic}}
@@ -62,7 +61,7 @@ export default class CustomNewTopicButton extends Component {
           @translatedLabel={{this.customCreateTopicLabel}}
           @disabled={{@createTopicDisabled}}
           id="custom-create-topic"
-          class="btn-default"
+          class="btn-primary btn-icon-text"
         >
           {{#if @createTopicDisabled}}
             <DTooltip>{{i18n "topic.create_disabled_category"}}</DTooltip>
