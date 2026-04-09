@@ -1,6 +1,8 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
+import { hash } from "@ember/helper"; 
+import DButton from "discourse/components/d-button";
 import DComboButton from "discourse/components/d-combo-button";
 import DropdownSelectBox from "discourse/components/dropdown-select-box";
 import DropdownSelectBoxRow from "discourse/components/dropdown-select-box/row";
@@ -13,7 +15,7 @@ import { getFilteredSetting, getTagName } from "../lib/setting-util";
 export default class CustomNewTopicButton extends Component {
   @service currentUser;
   @service composer;
-  @service router; // Needed for draft navigation
+  @service router;
 
   get filteredSetting() {
     const setting = getFilteredSetting(
@@ -29,8 +31,6 @@ export default class CustomNewTopicButton extends Component {
   }
 
   get customCreateTopicLabel() {
-    // We no longer need to check for drafts here, because drafts 
-    // are handled by the combo button's dropdown menu!
     return this.filteredSetting?.button_text;
   }
 
@@ -65,7 +65,6 @@ export default class CustomNewTopicButton extends Component {
     {{#if (and this.filteredSetting (or @category @tag))}}
       {{#if @canCreateTopic}}
         
-        {{!-- Use DComboButton instead of DButton --}}
         <DComboButton
           @class="btn-primary"
           @id="custom-create-topic-combo"
@@ -83,7 +82,6 @@ export default class CustomNewTopicButton extends Component {
           </:button>
 
           <:dropdown>
-            {{!-- This renders the dropdown arrow and menu, but ONLY if they have drafts --}}
             {{#if this.hasDrafts}}
               <DropdownSelectBox
                 @class="btn-primary d-combo-button-dropdown"
@@ -97,7 +95,6 @@ export default class CustomNewTopicButton extends Component {
               </DropdownSelectBox>
             {{/if}}
           </:dropdown>
-
         </DComboButton>
 
         {{#if @createTopicDisabled}}
