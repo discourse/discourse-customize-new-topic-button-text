@@ -18,11 +18,11 @@
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border-right-color: transparent;
-  margin-right: 0; 
+  margin-right: 0;
 }
 
 .navigation-controls:has(#custom-create-topic) .d-combo-button.--has-menu {
-  order: 99; 
+  order: 99;
   margin-left: -0.4em; /* Pull left to negate the flex gap */
 }
 
