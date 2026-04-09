@@ -1,12 +1,12 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
+import DButton from "discourse/components/d-button";
 import DTooltip from "discourse/float-kit/components/d-tooltip";
 import Composer from "discourse/models/composer";
 import { and, or } from "discourse/truth-helpers";
 import { i18n } from "discourse-i18n";
 import { getFilteredSetting, getTagName } from "../lib/setting-util";
-import TopicDraftsDropdown from "discourse/components/topic-drafts-dropdown"; // <-- Import core component!
 
 export default class CustomNewTopicButton extends Component {
   @service currentUser;
@@ -33,10 +33,6 @@ export default class CustomNewTopicButton extends Component {
     return this.filteredSetting?.icon;
   }
 
-  get hasDrafts() {
-    return this.currentUser?.has_topic_draft;
-  }
-
   @action
   customCreateTopic() {
     this.composer.open({
@@ -54,23 +50,18 @@ export default class CustomNewTopicButton extends Component {
   <template>
     {{#if (and this.filteredSetting (or @category @tag))}}
       {{#if @canCreateTopic}}
-        
-        <TopicDraftsDropdown
+        <DButton
           @action={{this.customCreateTopic}}
-          @label={{this.customCreateTopicLabel}}
-          @showDrafts={{this.hasDrafts}}
-          @btnId="custom-create-topic"
-          @btnClasses="btn-primary"
-          @btnTypeClass="btn-primary"
+          @icon={{this.customCreateTopicIcon}}
+          @translatedLabel={{this.customCreateTopicLabel}}
           @disabled={{@createTopicDisabled}}
-        />
-
-        {{#if @createTopicDisabled}}
-          <DTooltip @bindTo="#custom-create-topic">
-            {{i18n "topic.create_disabled_category"}}
-          </DTooltip>
-        {{/if}}
-
+          id="custom-create-topic"
+          class="btn-primary btn-icon-text" 
+        >
+          {{#if @createTopicDisabled}}
+            <DTooltip>{{i18n "topic.create_disabled_category"}}</DTooltip>
+          {{/if}}
+        </DButton>
       {{/if}}
     {{/if}}
   </template>
