@@ -1,21 +1,16 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
-import { hash } from "@ember/helper"; 
-import DButton from "discourse/components/d-button";
-import DComboButton from "discourse/components/d-combo-button";
-import DropdownSelectBox from "discourse/components/dropdown-select-box";
-import DropdownSelectBoxRow from "discourse/components/dropdown-select-box/row";
 import DTooltip from "discourse/float-kit/components/d-tooltip";
 import Composer from "discourse/models/composer";
 import { and, or } from "discourse/truth-helpers";
 import { i18n } from "discourse-i18n";
 import { getFilteredSetting, getTagName } from "../lib/setting-util";
+import TopicDraftsDropdown from "discourse/components/topic-drafts-dropdown"; // <-- Import core component!
 
 export default class CustomNewTopicButton extends Component {
   @service currentUser;
   @service composer;
-  @service router;
 
   get filteredSetting() {
     const setting = getFilteredSetting(
@@ -56,49 +51,22 @@ export default class CustomNewTopicButton extends Component {
     });
   }
 
-  @action
-  openDraft() {
-    this.router.transitionTo("user.activity.drafts", this.currentUser);
-  }
-
   <template>
     {{#if (and this.filteredSetting (or @category @tag))}}
       {{#if @canCreateTopic}}
         
-        <DComboButton
-          @class="btn-primary"
-          @id="custom-create-topic-combo"
+        <TopicDraftsDropdown
+          @action={{this.customCreateTopic}}
+          @label={{this.customCreateTopicLabel}}
+          @showDrafts={{this.hasDrafts}}
+          @btnId="custom-create-topic"
+          @btnClasses="btn-primary"
+          @btnTypeClass="btn-primary"
           @disabled={{@createTopicDisabled}}
-        >
-          <:button>
-            <DButton
-              @action={{this.customCreateTopic}}
-              @icon={{this.customCreateTopicIcon}}
-              @translatedLabel={{this.customCreateTopicLabel}}
-              @disabled={{@createTopicDisabled}}
-              id="custom-create-topic"
-              class="btn-primary"
-            />
-          </:button>
-
-          <:dropdown>
-            {{#if this.hasDrafts}}
-              <DropdownSelectBox
-                @class="btn-primary d-combo-button-dropdown"
-                @options={{hash icon="angle-down"}}
-              >
-                <DropdownSelectBoxRow
-                  @action={{this.openDraft}}
-                  @icon="far-pen-to-square"
-                  @label="topic.open_draft"
-                />
-              </DropdownSelectBox>
-            {{/if}}
-          </:dropdown>
-        </DComboButton>
+        />
 
         {{#if @createTopicDisabled}}
-          <DTooltip @bindTo="#custom-create-topic-combo">
+          <DTooltip @bindTo="#custom-create-topic">
             {{i18n "topic.create_disabled_category"}}
           </DTooltip>
         {{/if}}
