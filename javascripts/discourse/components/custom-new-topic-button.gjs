@@ -1,3 +1,5 @@
+// This component creates a new duplicate "New Topic" button
+// which avoids modifying the existing button/translations in core
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
@@ -26,7 +28,11 @@ export default class CustomNewTopicButton extends Component {
   }
 
   get customCreateTopicLabel() {
-    return this.filteredSetting?.button_text;
+    if (this.currentUser.has_topic_draft) {
+      return i18n("topic.open_draft");
+    } else {
+      return this.filteredSetting?.button_text;
+    }
   }
 
   get customCreateTopicIcon() {
@@ -56,7 +62,7 @@ export default class CustomNewTopicButton extends Component {
           @translatedLabel={{this.customCreateTopicLabel}}
           @disabled={{@createTopicDisabled}}
           id="custom-create-topic"
-          class="btn-primary btn-icon-text" 
+          class="btn-default"
         >
           {{#if @createTopicDisabled}}
             <DTooltip>{{i18n "topic.create_disabled_category"}}</DTooltip>
