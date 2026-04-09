@@ -24,7 +24,7 @@
 }
 
 // Ensure the dropdown button itself still has its flat left edge
-// (It should already have this from core, but just in case it loses it because 
+// (It should already have this from core, but just in case it loses it because
 // the main button is hidden, we enforce it here)
 #custom-create-topic ~ .d-combo-button .fk-d-menu__trigger {
   border-top-left-radius: 0;
