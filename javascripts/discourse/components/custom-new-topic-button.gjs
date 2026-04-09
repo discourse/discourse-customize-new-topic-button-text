@@ -1,14 +1,13 @@
-// This component creates a new duplicate "New Topic" button
-// which avoids modifying the existing button/translations in core
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
-import DButton from "discourse/components/d-button";
 import DTooltip from "discourse/float-kit/components/d-tooltip";
 import Composer from "discourse/models/composer";
 import { and, or } from "discourse/truth-helpers";
 import { i18n } from "discourse-i18n";
+import I18n from "discourse-i18n"; // Import global I18n to register keys
 import { getFilteredSetting, getTagName } from "../lib/setting-util";
+import TopicDraftsDropdown from "discourse/components/topic-drafts-dropdown";
 
 export default class CustomNewTopicButton extends Component {
   @service currentUser;
@@ -28,10 +27,16 @@ export default class CustomNewTopicButton extends Component {
   }
 
   get customCreateTopicLabel() {
-    if (this.currentUser.has_topic_draft) {
-      return i18n("topic.open_draft");
-    } else {
-      return this.filteredSetting?.button_text;
+    const text = this.filteredSetting?.button_text;
+    
+    if (text) {
+      // Trick the i18n system!
+      // Dynamically register your custom text as a valid translation key.
+      const customKey = "custom_topic_button_text";
+      I18n.translations[I18n.currentLocale()].js[customKey] = text;
+      
+      // Return the new valid key!
+      return customKey;
     }
   }
 
